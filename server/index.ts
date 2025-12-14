@@ -17,9 +17,15 @@ import {
 
 const app = express();
 const httpServer = createServer(app);
+
+// Configure CORS - restrict origins in production
+const allowedOrigins = process.env.CORS_ORIGINS 
+  ? process.env.CORS_ORIGINS.split(',')
+  : ['*'];
+
 const io = new Server(httpServer, {
   cors: {
-    origin: '*',
+    origin: allowedOrigins.includes('*') ? '*' : allowedOrigins,
     methods: ['GET', 'POST'],
   },
 });

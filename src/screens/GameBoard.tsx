@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
-  Dimensions,
 } from 'react-native';
 import { Socket } from 'socket.io-client';
 import { GameState, GamePhase, Card } from '../types/game';
@@ -20,8 +19,6 @@ interface GameBoardProps {
   socket: Socket;
   playerId: string;
 }
-
-const { width } = Dimensions.get('window');
 
 export default function GameBoard({ gameState, socket, playerId }: GameBoardProps) {
   const [showBiddingModal, setShowBiddingModal] = useState(false);

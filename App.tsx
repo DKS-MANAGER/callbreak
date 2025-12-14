@@ -7,16 +7,16 @@ import MainMenu from './src/screens/MainMenu';
 import Lobby from './src/screens/Lobby';
 import GameBoard from './src/screens/GameBoard';
 import { GameState, GamePhase } from './src/types/game';
+import config from './src/config';
 
 export default function App() {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [gameState, setGameState] = useState<GameState | null>(null);
-  const [playerName, setPlayerName] = useState<string>('');
   const [screen, setScreen] = useState<'menu' | 'lobby' | 'game'>('menu');
 
   useEffect(() => {
-    // Connect to server (replace with your server URL)
-    const newSocket = io('http://localhost:3000');
+    // Connect to server using config
+    const newSocket = io(config.serverUrl);
 
     newSocket.on('connect', () => {
       console.log('Connected to server');
@@ -52,12 +52,10 @@ export default function App() {
   }, []);
 
   const handleCreateGame = (name: string) => {
-    setPlayerName(name);
     socket?.emit('create-game', name);
   };
 
   const handleJoinGame = (gameId: string, name: string) => {
-    setPlayerName(name);
     socket?.emit('join-game', { gameId, playerName: name });
   };
 

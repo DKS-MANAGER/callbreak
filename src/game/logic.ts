@@ -291,8 +291,13 @@ export function playCard(
 }
 
 /**
- * Generate a random game ID
+ * Generate a random game ID using crypto for better security
  */
 function generateGameId(): string {
+  // Use crypto.randomUUID if available (Node 15+), otherwise fallback
+  if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+    return crypto.randomUUID().split('-')[0].toUpperCase();
+  }
+  // Fallback for older environments
   return Math.random().toString(36).substring(2, 9).toUpperCase();
 }

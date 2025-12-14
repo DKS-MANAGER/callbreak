@@ -18,7 +18,6 @@ interface LobbyProps {
 
 export default function Lobby({ gameState, socket }: LobbyProps) {
   const currentPlayer = gameState.players.find((p) => p.id === socket.id);
-  const isHost = gameState.players[0]?.id === socket.id;
 
   const handleReady = () => {
     socket.emit('player-ready');
