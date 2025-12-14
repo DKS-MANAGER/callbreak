@@ -1,0 +1,5 @@
+# Requirements for development/testing
+kivy==2.3.0
+buildozer
+python-for-android
+pytest
