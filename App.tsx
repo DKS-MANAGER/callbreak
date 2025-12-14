@@ -1,7 +1,7 @@
 // Main App component
 
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Alert } from 'react-native';
 import { io, Socket } from 'socket.io-client';
 import MainMenu from './src/screens/MainMenu';
 import Lobby from './src/screens/Lobby';
@@ -41,7 +41,7 @@ export default function App() {
     });
 
     newSocket.on('error', (error: { message: string }) => {
-      alert(error.message);
+      Alert.alert('Error', error.message);
     });
 
     setSocket(newSocket);
@@ -69,7 +69,7 @@ export default function App() {
       {screen === 'lobby' && gameState && socket && (
         <Lobby gameState={gameState} socket={socket} />
       )}
-      {screen === 'game' && gameState && socket && (
+      {screen === 'game' && gameState && socket && socket.id && (
         <GameBoard gameState={gameState} socket={socket} playerId={socket.id} />
       )}
     </View>
